@@ -53,6 +53,30 @@ class UserController extends Controller
         return view('admin.index');
     }
 
+
+    public function listes_users(){
+
+        $usersAll=User::all();
+
+        return view('admin.users',compact('usersAll'));
+    }
+
+
+    public function update_account($id){
+
+
+        $user=User::find($id);
+        if(!$user){
+
+            toastr()->error('Veuillez actualiser la page');
+            return back();
+        }
+
+        return view('admin.update',compact('user'));
+
+
+    }
+
     
   
 
@@ -90,5 +114,89 @@ class UserController extends Controller
         return back();
 
 
+    }
+
+
+
+    public function update_account_user(Request $request){
+
+
+        $request->validate([
+            'nom'=>'required',
+            'email'=>'required|email',
+            'role'=>'required',
+            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+
+        ],[
+            'nom.required'=>'Le nom est requis dans le formulaire',
+            'email.required'=>'L email est requis dans le formulaire',
+            'role.required'=>'Le role est requis',
+            'email.email'=>'L email doit etre de type Ex : example@gmail.com',
+            'profile.image'=>'Le fichier doit etre une image',
+            'profile.mimes'=>'Le fichier doit etre de type :jpeg,png,jpg',
+        ]);
+        $user=User::find($request->id);
+
+        if(!$user){
+
+            toastr()->error("Veuillez actualiser la page");
+            return back();
+        }
+
+        $user->nom=$request->nom;
+        $user->email=$request->email;
+        $user->role=$request->role;
+
+        if($request->hasFile('profile')){
+            $user->profile=$request->file('profile')->store('user','public');
+        }
+
+        $user->touch();
+        toastr()->info('Compte crée avec success!');
+        return back();
+    }
+
+
+    public function update_password(Request $request){
+
+        $request->validate([
+            'password'=>'required|min:4',
+            'password2'=>'required|min:4',
+
+
+        ],[
+            'password.required'=>'Le mot de passe est requis dans le formulaire',
+            'password2.required'=>'Le mot de passe est requis dans le formulaire',
+            'password.min'=>'Le mot de passe doit aumoins avoir 4 caractère',
+            'password2.min'=>'Le mot de passe doit aumoins avoir 4 caractère',
+
+        ]);
+
+
+         if($request->password !=$request->password2){
+
+            toastr()->error("Les mots de passe doivent etre identique");
+            return back()->withInput();
+        }
+
+        $user=User::find($request->id);
+        if(!$user){
+
+            toastr()->error("Veuillez actualiser la page");
+            return back();
+        }
+
+        $user->password=Hash::make($request->password);
+        $user->touch();
+
+        toastr()->info("Votre mot de passe à été modifié");
+            return back();      
+    }
+
+    public function logout(){
+
+        Auth::logout();
+
+        return view('admin.login');
     }
 }
