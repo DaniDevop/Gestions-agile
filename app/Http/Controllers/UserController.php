@@ -53,6 +53,9 @@ class UserController extends Controller
         return view('admin.index');
     }
 
+    
+  
+
 
     public function register(){
 
