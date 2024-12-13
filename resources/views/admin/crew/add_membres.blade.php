@@ -14,10 +14,9 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Listes des groupes </h3>
+              <h3 class="page-title"> Ajouter un membrres </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Listes des groupes</a></li>
                 </ol>
               </nav>
             </div>
@@ -28,7 +27,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">
-                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter un Groupe</button>        
+                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter un membres</button>        
                 </h4>
                     </p>
                     <div class="table-responsive">
@@ -39,21 +38,17 @@
       <th>Désignation</th>
       <th>Chef d équipe</th>
       <th>Date de création</th>
-      <th>Ajouter un menbres</th>
-      <th>Éditer</th>
     </tr>
   </thead>
   <tbody>
-    @foreach($groupeAll as $groupe)
+  
     <tr>
       <td> {{$groupe->id}} </td>
       <td>{{$groupe->libelle}}</td>
       <td>{{$groupe->chef}}</td>
       <td>{{$groupe->created_at}}</td>
-      <td><a href="{{route('add.membres',['id'=>$groupe->id])}}" ><button class="btn  btn-primary"><i class="bi bi-plus-circle"></i></button></a></td>
-      <td><a href="{{route('edit.groupe',['id'=>$groupe->id])}}"><button class="btn btn-sm btn-primary">Éditer</button></a></td>
     </tr>
-    @endforeach
+   
     
   </tbody>
 </table>
@@ -90,27 +85,23 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un groupe</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier les informations</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="{{route('addGroupes.project')}}" method="POST">
+      <form action="{{route('add.users.groupe')}}" method="POST">
         @csrf
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Designation</label>
-    <input type="text" name="libelle" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    @error('libelle')
-            <span class="text-danger">{{ $message }}</span>
-        @enderror
-  </div>
-    <div class="form-group">
-                            <label for="exampleInputPassword4">Chef d équipe</label>
-                            <select name="chef" id="" class="form-control">
+
+                    <div class="form-group">
+                            <label for="exampleInputPassword4">Membres</label>
+                            <select name="user_id" id="" class="form-control">
                             @foreach($users as $user)
-                                <option value="{{$user->nom}}">{{$user->nom}}</option>
+                                <option value="{{$user->id}}">{{$user->nom}}</option>
                                 @endforeach
                             </select>
                         </div>
+
+                        <input type="hidden" name="groupe_id" value="{{$groupe->id}}">
     
   <button type="submit" class="btn btn-primary">Valider</button>
 </form>

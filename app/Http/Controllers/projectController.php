@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Groupe;
 use App\Models\Project;
 use App\Models\User;
+use App\Models\UserGroupe;
 use Illuminate\Http\Request;
 
 class projectController extends Controller
@@ -179,6 +180,47 @@ class projectController extends Controller
         toastr()->success('Groupe mise à jour avec success ');
         return back();
 
+
+    }
+
+
+
+    public function add_membres($id){
+
+        $groupe=Groupe::find($id);
+        if(!$groupe){
+          toastr()->warning('Veuillez rafraichir la page');
+          return back();
+        }
+
+        $users=User::all();
+
+        return view("admin.crew.add_membres",compact('users','groupe'));
+    }
+
+
+    public function add_users_groupe(Request $request){
+        
+        $request->validate([
+            'groupe_id'=>'required|exists:groupes,id',
+            'user_id'=>'required|exists:users,id',
+
+        ]);
+       
+        $groupe_Exist=UserGroupe::where('user_id',$request->user_id)->where('groupe_id',$request->groupe_id)->exists();
+
+        if ($groupe_Exist) {
+            toastr()->warning('L’utilisateur existe déjà dans ce groupe.');
+            return back();
+        }
+    
+
+        $groupe_user=new UserGroupe();
+        $groupe_user->user_id=$request->user_id;
+        $groupe_user->groupe_id=$request->groupe_id;
+        $groupe_user->save();
+        toastr()->info('Membres ajouté avec success !');
+        return back();
 
     }
 

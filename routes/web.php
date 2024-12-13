@@ -37,6 +37,8 @@ Route::middleware(AuthUserSecurity::class)->group(function () {
 
     Route::get('/admin/listes-utilisateur', [UserController::class, 'listes_users'])->name('listes.users');
     Route::get('admin/update-account/{id}', [UserController::class, 'update_account'])->name('update.account');
+    Route::get('admin/groupe/add_membres/{id}', [projectController::class, 'add_membres'])->name('add.membres');
+    Route::post('/admin/addUsersGroupe', [projectController::class, 'add_users_groupe'])->name('add.users.groupe');
 
     Route::get('/register', [UserController::class, 'register'])->name('register.user');
     Route::post('/register/addAccount', [UserController::class, 'addAccountUser'])->name('addAccountUser.user');
