@@ -34,6 +34,9 @@ Route::middleware(AuthUserSecurity::class)->group(function () {
     Route::get('admin/tachess/listes', [TaskController::class, 'listes_taches'])->name('listes.taches');
     Route::post('/admin/addTaches', [TaskController::class, 'add_taches'])->name('add.taches');
 
+    Route::get('admin/mes-taches/listes/{id}', [TaskController::class, 'my_task'])->name('my.task');
+    Route::get('admin/mes-groupes/listes', [TaskController::class, 'my_crew'])->name('my.crew');
+    Route::get('admin/mlistes-des-groupes/listes', [TaskController::class, 'list_groupes'])->name('list.groupes');
 
     Route::get('/admin/listes-utilisateur', [UserController::class, 'listes_users'])->name('listes.users');
     Route::get('admin/update-account/{id}', [UserController::class, 'update_account'])->name('update.account');

@@ -17,4 +17,10 @@ class Groupe extends Model
 
         return $this->hasMany(Project::class);
     }
+
+    public function UserGroupe():HasMany{
+
+
+        return $this->hasMany(UserGroupe::class);
+    }
 }

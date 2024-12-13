@@ -16,7 +16,7 @@ class task extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function projet():BelongsTo{
+    public function project():BelongsTo{
 
         return $this->belongsTo(Project::class);
     }

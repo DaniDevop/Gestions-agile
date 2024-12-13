@@ -28,7 +28,11 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">
-                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter une taches</button>        
+                    @if(Auth::user()->role =='ADMIN')
+
+                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter une taches</button>
+                    @endif
+      
                 </h4>
                     </p>
                     <div class="table-responsive">
@@ -40,7 +44,7 @@
       <th>Utilisateur</th>
       <th>Project</th>
       <th>Groupe</th>
-      <th>Date de création</th>
+      <th>Status</th>
       <th>Éditer</th>
     </tr>
   </thead>
@@ -50,9 +54,9 @@
       <td> {{$task->id}} </td>
       <td>{{$task->libelle}}</td>
       <td>{{$task->user->nom}}</td>
-      <td>{{$task->project->libelle}}</td>
-      <td>{{$task->groupe->libelle}}</td>
-      <td>{{$task->created_at}}</td>
+      <td>{{$task->project->libelle ??''}}</td>
+      <td>{{$task->project->groupe->libelle}}</td>
+      <td>{{$task->status}}</td>
       <td><a href="{{route('edit.project',['id'=>$task->id])}}"><button class="btn btn-sm btn-primary">Éditer</button></a></td>
     </tr>
     @endforeach
@@ -109,7 +113,7 @@
                             <label for="exampleInputPassword4">Utilisateur</label>
                             <select name="user_id" id="" class="form-control">
                             @foreach($users as $user)
-                                <option value="{{$user->nom}}">{{$user->nom}}</option>
+                                <option value="{{$user->id}}">{{$user->nom}}</option>
                                 @endforeach
                             </select>
                             @error('user_id')

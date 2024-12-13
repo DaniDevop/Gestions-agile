@@ -39,8 +39,7 @@
       <th>Désignation</th>
       <th>Chef d équipe</th>
       <th>Date de création</th>
-      <th>Ajouter un menbres</th>
-      <th>Éditer</th>
+      <th>Mes taches</th>
     </tr>
   </thead>
   <tbody>
@@ -51,8 +50,7 @@
       <td>{{$groupe->groupe->libelle}}</td>
       <td>{{$groupe->groupe->chef}}</td>
       <td>{{$groupe->created_at}}</td>
-      <td><a href="{{route('add.membres',['id'=>$groupe->groupe->id])}}" ><button class="btn  btn-primary"><i class="bi bi-plus-circle"></i></button></a></td>
-      <td><a href="{{route('edit.groupe',['id'=>$groupe->groupe->id])}}"><button class="btn btn-sm btn-primary">Éditer</button></a></td>
+      <td><a href="{{route('my.task',['id'=>$groupe->groupe->id])}}" ><button class="btn  btn-primary"><i class="bi bi-list-task"></i></button></a></td>
     </tr>
     @endforeach
     

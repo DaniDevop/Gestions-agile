@@ -51,4 +51,11 @@ class User extends Authenticatable
 
         return $this->hasMany(task::class);
     }
+
+
+    public function UserGroupe():HasMany{
+
+
+        return $this->hasMany(UserGroupe::class);
+    }
 }

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Groupe;
 use App\Models\Project;
 use App\Models\task;
 use App\Models\User;
+use App\Models\UserGroupe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -15,13 +19,15 @@ class TaskController extends Controller
 
         $users=User::all();
         $projetAll=Project::all();
-
+        
         return view("admin.task.index",compact("taskAll","users","projetAll"));
     }
 
 
     public function add_taches(Request $request){
+       
 
+        
         $request->validate([
             'libelle'=>'required',
             'user_id'=>'required|exists:users,id',
@@ -48,4 +54,44 @@ class TaskController extends Controller
          return back();
  
     }
+
+    public function my_task($id){
+
+
+        $groupeExist=Groupe::find($id);
+        if(!$groupeExist){
+            toastr()->error("Le groupe n existe plus !");
+            return back();
+        }
+        $users=User::all();
+        $projetAll=Project::all();
+        $taskAll = Task::join('projects', 'projects.id', '=', 'tasks.project_id')
+        ->where('projects.groupe_id', $id)
+        ->where('tasks.user_id', Auth::user()->id)
+        ->select('tasks.*', 'projects.libelle as project_name') 
+        ->get();
+        dd($taskAll);
+        return view('admin.task.my_task',compact("taskAll","users","projetAll"));
+    }
+
+
+    public function my_crew(){
+
+        $groupeAll=UserGroupe::where('user_id',Auth::user()->id)->get();
+        $users=User::all();
+
+
+        return view("admin.crew.my_crew",compact('groupeAll','users'));
+    }
+
+
+
+    public function list_groupes(){
+
+        $users=User::all();
+        $groupeAll=Groupe::all();
+      
+        return view('admin.crew.listes_groupes',compact('users','groupeAll'));
+    }
+
 }

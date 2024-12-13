@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\User;
 use App\Models\UserGroupe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class projectController extends Controller
 {
@@ -27,9 +28,9 @@ class projectController extends Controller
     public function list_groupes(){
 
         $users=User::all();
-        $groupeAll=Groupe::all();
+        //$groupeAll=Groupe::all();
       
-
+        $groupeAll=UserGroupe::where('user_id',Auth::user()->id)->get();
         return view('admin.crew.index',compact('users','groupeAll'));
     }
 
@@ -223,6 +224,10 @@ class projectController extends Controller
         return back();
 
     }
+
+
+
+   
 
 
     
