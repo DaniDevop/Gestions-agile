@@ -14,10 +14,10 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Listes des taches </h3>
+              <h3 class="page-title"> Details de la  taches </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Listes des taches</a></li>
+                  <li class="breadcrumb-item"><a href="#">Détails de la taches</a></li>
                 </ol>
               </nav>
             </div>
@@ -30,13 +30,10 @@
                     <h4 class="card-title">
                     @if(Auth::user()->role =='ADMIN')
 
-                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter une taches</button>
+                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Modifier la taches</button>
                     @endif
-                    <br>
 
-                    @if($taskEnRetard>0)
-                    <span style="color: red;;">Vous avez  {{$taskEnRetard}}  taches en cours non Terminer</span>
-                    @endif
+                    
       
                 </h4>
                     </p>
@@ -49,39 +46,22 @@
       <th>Utilisateur</th>
       <th>Project</th>
       <th>Status</th>
-      <th>Date d'écheances'</th>
-      @if(Auth::user()->role =='ADMIN')
-      <th>Éditer</th>
-      @endif
-      <th>Valider</th>
-
+      <th>Date d'écheances</th>
+     
     </tr>
   </thead>
   <tbody>
-    @foreach($taskAll as $task)
+   
     <tr>
       <td> {{$task->id}} </td>
       <td>{{$task->libelle}}</td>
       <td>{{$task->user->nom}}</td>
       <td>{{$task->project->libelle}}</td>
-      <td>
-      @if ($task->date_echeances < date('Y-m-d'))
-                        <span style="color: red;">En retard</span>
-                    @elseif ($task->date_echeances == date('Y-m-d'))
-                        <span style="color: orange;">À faire aujourd'hui</span>
-                    @else
-                        <span style="color: green;">À venir</span>
-                    @endif
-      </td>
+      <td>{{$task->status}}</td>
       <td>{{$task->date_echeances}}</td>
-      @if(Auth::user()->role =='ADMIN')
-
-      <td><a href="{{route('edit.task',['id'=>$task->id])}}"><button class="btn btn-sm btn-primary">Éditer</button></a></td>
-      @endif
-      <td><a href="{{route('validation.task',['id'=>$task->id])}}"><button class="btn btn-sm btn-primary">Valider</button></a></td>
-
+      
     </tr>
-    @endforeach
+   
     
   </tbody>
 </table>
@@ -118,15 +98,15 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter une taches</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier la tache</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="{{route('add.taches')}}" method="POST">
+      <form action="{{route('upgrade.task')}}" method="POST">
         @csrf
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Designation</label>
-    <input type="text" name="libelle" class="form-control" id="exampleInputEmail1" value="{{old('libelle')}}" aria-describedby="emailHelp">
+    <input type="text" name="libelle" class="form-control" id="exampleInputEmail1" value="{{$task->libelle}}" aria-describedby="emailHelp">
     @error('libelle')
             <span class="text-danger">{{ $message }}</span>
         @enderror
@@ -135,7 +115,7 @@
 
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Date d 'échéances</label>
-    <input type="date" name="date_echeances" class="form-control" id="exampleInputEmail1" value="{{old('date_echeances')}}" aria-describedby="emailHelp">
+    <input type="date" name="date_echeances" class="form-control" id="exampleInputEmail1" value="{{$task->date_echeances}}" aria-describedby="emailHelp">
     @error('libelle')
             <span class="text-danger">{{ $message }}</span>
         @enderror
@@ -143,6 +123,8 @@
                     <div class="form-group">
                             <label for="exampleInputPassword4">Utilisateur</label>
                             <select name="user_id" id="" class="form-control">
+                            <option value="{{$task->user_id}}">{{$task->user->nom}}</option>
+
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->nom}}</option>
                                 @endforeach
@@ -155,6 +137,7 @@
                         <div class="form-group">
                             <label for="exampleInputPassword4">Projet</label>
                             <select name="project_id" id="" class="form-control">
+                            <option value="{{$task->project_id}}">{{$task->project->libelle}}</option>
                             @foreach($projetAll as $projet)
                                 <option value="{{$projet->id}}">{{$projet->libelle}}</option>
                                 @endforeach
@@ -164,6 +147,8 @@
             <span class="text-danger">{{ $message }}</span>
         @enderror
                         </div>
+
+                        <input type="hidden" name="id" value="{{$task->id}}">
     
   <button type="submit" class="btn btn-primary">Valider</button>
 </form>

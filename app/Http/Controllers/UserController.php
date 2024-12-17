@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\request\AddUserRequest;
+use App\Models\task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +51,15 @@ class UserController extends Controller
 
     public function home(){
 
-        return view('admin.index');
+
+        $taskAll = task::join('projects', 'projects.id', '=', 'tasks.project_id')
+        ->where('tasks.user_id', Auth::user()->id)
+        ->where('tasks.date_echeances', '<=', date('Y-m-d')) 
+        ->where('tasks.status', 'En-cours')
+        ->select('tasks.*', 'projects.libelle as project_name') 
+        ->get();
+
+        return view('admin.index',compact('taskAll'));
     }
 
 

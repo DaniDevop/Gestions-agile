@@ -72,8 +72,19 @@ class TaskController extends Controller
         ->where('tasks.user_id', Auth::user()->id)
         ->select('tasks.*', 'projects.libelle as project_name') 
         ->get();
+
+        // Date d échéances
+        $taskEnRetard = Task::join('projects', 'projects.id', '=', 'tasks.project_id')
+        ->where('projects.groupe_id', $id)
+        ->where('tasks.user_id', Auth::user()->id)
+        ->where('tasks.date_echeances', '<=', date('Y-m-d')) 
+        ->where('tasks.status', 'En-cours')
+        ->select('tasks.*', 'projects.libelle as project_name') 
+        ->count();
+
+    
         
-        return view('admin.task.my_task',compact("taskAll","users","projetAll"));
+        return view('admin.task.my_task',compact("taskAll","users","projetAll",'taskEnRetard'));
     }
 
 
@@ -113,6 +124,65 @@ class TaskController extends Controller
         toastr()->success('Taches valider avec success !');
 
         return back();
+    }
+
+
+
+
+    public function edit_task($id){
+
+
+        $task=task::find($id);
+        if(!$task){
+            toastr()->error("Le groupe n existe plus !");
+            return back();
+        }
+        $users=User::all();
+        $projetAll=Project::all();
+        
+   
+        
+        return view('admin.task.edit',compact("task","users","projetAll"));
+    }
+
+
+
+    
+    public function upgrade_task(Request $request){
+       
+        $request->validate([
+            'libelle'=>'required',
+            'user_id'=>'required|exists:users,id',
+            'project_id'=>'required|exists:projects,id',
+            'date_echeances'=>'required'
+
+            
+         ],[
+             'libelle.required'=>'Le nom du groupes ne peut etre vide',
+             'user_id.exists'=>'L utilisateur choisis n existe plus',
+             'project_id.exists'=>'Le projet choisis n existe plus',
+             'user_id.required'=>'Veuillez choisr un utilisateur',
+             'project_id.required'=>'Veuillez choisr un projet',
+             'date_echeances.required'=>'Veuillez choisr une date d échéances',
+
+
+         ]);
+
+         $task=task::find($request->id);
+         if(!$task){
+             toastr()->error("Veuillez actualiser la page !");
+             return back();
+         }
+         $task->libelle=$request->libelle;
+         $task->user_id=$request->user_id;
+         $task->project_id=$request->project_id;
+         $task->date_echeances=$request->date_echeances;
+         $task->status="En-cours";
+         $task->save();
+
+         toastr()->success("Taches modifié avec succes !");
+         return back();
+ 
     }
 
 }
