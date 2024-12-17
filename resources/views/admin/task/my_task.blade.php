@@ -44,8 +44,12 @@
       <th>Utilisateur</th>
       <th>Project</th>
       <th>Status</th>
-      <th>Date de création</th>
+      <th>Date d'écheances'</th>
+      @if(Auth::user()->role =='ADMIN')
       <th>Éditer</th>
+      @endif
+      <th>Valider</th>
+
     </tr>
   </thead>
   <tbody>
@@ -56,8 +60,13 @@
       <td>{{$task->user->nom}}</td>
       <td>{{$task->project->libelle}}</td>
       <td>{{$task->status}}</td>
-      <td>{{$task->created_at}}</td>
+      <td>{{$task->date_echeances}}</td>
+      @if(Auth::user()->role =='ADMIN')
+
       <td><a href="{{route('edit.project',['id'=>$task->id])}}"><button class="btn btn-sm btn-primary">Éditer</button></a></td>
+      @endif
+      <td><a href="{{route('validation.task',['id'=>$task->id])}}"><button class="btn btn-sm btn-primary">Valider</button></a></td>
+
     </tr>
     @endforeach
     
@@ -109,11 +118,20 @@
             <span class="text-danger">{{ $message }}</span>
         @enderror
   </div>
+
+
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Date d 'échéances</label>
+    <input type="date" name="date_echeances" class="form-control" id="exampleInputEmail1" value="{{old('date_echeances')}}" aria-describedby="emailHelp">
+    @error('libelle')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
+  </div>
                     <div class="form-group">
                             <label for="exampleInputPassword4">Utilisateur</label>
                             <select name="user_id" id="" class="form-control">
                             @foreach($users as $user)
-                                <option value="{{$user->nom}}">{{$user->nom}}</option>
+                                <option value="{{$user->id}}">{{$user->nom}}</option>
                                 @endforeach
                             </select>
                             @error('user_id')

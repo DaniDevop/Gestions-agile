@@ -15,7 +15,7 @@ class TaskController extends Controller
 {
     public function listes_taches(){
 
-        $taskAll=task::all();
+        $taskAll=task::where('status','=','Terminer')->get();
 
         $users=User::all();
         $projetAll=Project::all();
@@ -26,12 +26,11 @@ class TaskController extends Controller
 
     public function add_taches(Request $request){
        
-
-        
         $request->validate([
             'libelle'=>'required',
             'user_id'=>'required|exists:users,id',
             'project_id'=>'required|exists:projects,id',
+            'date_echeances'=>'required'
 
             
          ],[
@@ -40,6 +39,8 @@ class TaskController extends Controller
              'project_id.exists'=>'Le projet choisis n existe plus',
              'user_id.required'=>'Veuillez choisr un utilisateur',
              'project_id.required'=>'Veuillez choisr un projet',
+             'date_echeances.required'=>'Veuillez choisr une date d échéances',
+
 
          ]);
 
@@ -47,6 +48,7 @@ class TaskController extends Controller
          $task->libelle=$request->libelle;
          $task->user_id=$request->user_id;
          $task->project_id=$request->project_id;
+         $task->date_echeances=$request->date_echeances;
          $task->status="En-cours";
          $task->save();
 
@@ -70,7 +72,7 @@ class TaskController extends Controller
         ->where('tasks.user_id', Auth::user()->id)
         ->select('tasks.*', 'projects.libelle as project_name') 
         ->get();
-        dd($taskAll);
+        
         return view('admin.task.my_task',compact("taskAll","users","projetAll"));
     }
 
@@ -92,6 +94,25 @@ class TaskController extends Controller
         $groupeAll=Groupe::all();
       
         return view('admin.crew.listes_groupes',compact('users','groupeAll'));
+    }
+
+
+
+
+    public function valide_task($id){
+
+        $task=task::find($id);
+        if(!$task){
+
+            toastr()->error('Veuillez rafraichir la page !');
+            return back();
+        }
+
+        $task->status='Terminer';
+        $task->save();
+        toastr()->success('Taches valider avec success !');
+
+        return back();
     }
 
 }

@@ -14,10 +14,10 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Listes des taches </h3>
+              <h3 class="page-title"> Listes des taches valider</h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Listes des taches</a></li>
+                  <li class="breadcrumb-item"><a href="#">Listes des taches valider</a></li>
                 </ol>
               </nav>
             </div>
@@ -28,10 +28,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">
-                    @if(Auth::user()->role =='ADMIN')
-
-                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter une taches</button>
-                    @endif
+                  
       
                 </h4>
                     </p>
@@ -45,7 +42,6 @@
       <th>Project</th>
       <th>Groupe</th>
       <th>Status</th>
-      <th>Éditer</th>
     </tr>
   </thead>
   <tbody>
@@ -57,7 +53,6 @@
       <td>{{$task->project->libelle ??''}}</td>
       <td>{{$task->project->groupe->libelle}}</td>
       <td>{{$task->status}}</td>
-      <td><a href="{{route('edit.project',['id'=>$task->id])}}"><button class="btn btn-sm btn-primary">Éditer</button></a></td>
     </tr>
     @endforeach
     

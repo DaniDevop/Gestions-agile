@@ -37,6 +37,7 @@ Route::middleware(AuthUserSecurity::class)->group(function () {
     Route::get('admin/mes-taches/listes/{id}', [TaskController::class, 'my_task'])->name('my.task');
     Route::get('admin/mes-groupes/listes', [TaskController::class, 'my_crew'])->name('my.crew');
     Route::get('admin/mlistes-des-groupes/listes', [TaskController::class, 'list_groupes'])->name('list.groupes');
+    Route::get('admin/mes-taches/valider/{id}', [TaskController::class, 'valide_task'])->name('validation.task');
 
     Route::get('/admin/listes-utilisateur', [UserController::class, 'listes_users'])->name('listes.users');
     Route::get('admin/update-account/{id}', [UserController::class, 'update_account'])->name('update.account');

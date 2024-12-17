@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Project::class);
             $table->string('status');
+            $table->string('date_echeances');
 
             $table->timestamps();
         });

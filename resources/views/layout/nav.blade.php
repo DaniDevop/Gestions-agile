@@ -61,13 +61,15 @@
               <span class="menu-icon">
                 <i class="mdi mdi-laptop"></i>
               </span>
-              <span class="menu-title">Projet</span>
+              <span class="menu-title">Projet Et Groupes</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{route('listes.project')}}">Listes des project</a></li>
+                @if(Auth::user()->role=='ADMIN')
                 <li class="nav-item"> <a class="nav-link" href="{{route('list.groupes')}}">Listes des groupes</a></li>
+                @endif
                 <li class="nav-item"> <a class="nav-link" href="{{route('my.crew')}}">Mes groupes</a></li>
 
               </ul>
@@ -89,14 +91,7 @@
             </div>
           </li>
          
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/tables/basic-table.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-table-large"></i>
-              </span>
-              <span class="menu-title">Utilisateur</span>
-            </a>
-          </li>
+         
         
           <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">

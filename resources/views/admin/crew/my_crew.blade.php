@@ -28,7 +28,9 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">
-                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter un Groupe</button>        
+                        @if(Auth::user()->role=='ADMIN')
+                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter un Groupe</button>
+                    @endif      
                 </h4>
                     </p>
                     <div class="table-responsive">
