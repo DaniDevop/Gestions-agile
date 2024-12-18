@@ -225,7 +225,7 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Taches nom respecté</h4>
+                    <h4 class="card-title">Taches non respecté</h4>
                     <div class="table-responsive">
                       <table class="table">
                         <thead>
@@ -239,7 +239,7 @@
                             <th> Date d'échéances </th>
                             @if(Auth::user()->role =='ADMIN')
 
-                            <th> Valider ? </th>
+                            <th> Valider   </th>
                             @endif
                           </tr>
                         </thead>
