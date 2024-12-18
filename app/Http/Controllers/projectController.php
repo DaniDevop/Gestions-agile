@@ -195,8 +195,22 @@ class projectController extends Controller
         }
 
         $users=User::all();
+        $userGroupeAll=UserGroupe::where('groupe_id',$id)->get();
 
-        return view("admin.crew.add_membres",compact('users','groupe'));
+        return view("admin.crew.add_membres",compact('users','groupe','userGroupeAll'));
+    }
+
+    public function delete_membre_of_groupe($id){
+
+        $userGroupe=UserGroupe::find($id);
+        if(!$userGroupe){
+            toastr()->warning('Veuillez rafraichir la page');
+            return back();
+        }
+        $userGroupe->delete();
+        toastr()->info("Utilisateur rétiré avec success !");
+        return back();
+
     }
 
 

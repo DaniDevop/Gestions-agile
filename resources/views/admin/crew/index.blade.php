@@ -59,6 +59,16 @@
   </tbody>
 </table>
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
                     </div>
                   </div>
                 </div>
@@ -99,14 +109,14 @@
         @csrf
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Designation</label>
-    <input type="text" name="libelle" style="color:aliceblue" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input type="text" name="libelle" style="color:aliceblue;" class="form-control" >
     @error('libelle')
             <span class="text-danger">{{ $message }}</span>
         @enderror
   </div>
     <div class="form-group">
                             <label for="exampleInputPassword4">Chef d équipe</label>
-                            <select name="chef" id="" class="form-control" style="color:aliceblue">
+                            <select name="chef"  class="form-control" style="color:aliceblue;">
                             @foreach($users as $user)
                                 <option value="{{$user->nom}}">{{$user->nom}}</option>
                                 @endforeach

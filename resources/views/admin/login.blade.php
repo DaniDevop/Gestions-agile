@@ -31,7 +31,7 @@
                     <button type="submit" class="btn btn-primary btn-block enter-btn">Valider</button>
                   </div>
                   
-                  <p style="color:aliceblue"   class="sign-up">Mot de passe oublié ?<a href="#"> Sign Up</a></p>
+                  <p style="color:aliceblue"   class="sign-up"><a href="#"> </a></p>
                 </form>
               </div>
             </div>

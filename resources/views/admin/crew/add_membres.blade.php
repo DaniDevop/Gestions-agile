@@ -29,29 +29,49 @@
                     <h4 class="card-title">
                     <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter un membres</button>        
                 </h4>
+
+                <h4 class="card-title">
+                    <button class="nav-link btn btn-info create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Le chef du groupe est   : {{$groupe->chef}}</button>        
+                </h4>
                     </p>
                     <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover">
+                    <h3 class="page-title"> Listes des membres </h3>
+                    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
   <thead class="thead-dark">
     <tr>
       <th>#</th>
       <th>Désignation</th>
-      <th>Chef d équipe</th>
-      <th>Date de création</th>
+      <th>Membres</th>
+      <th>Date d'insertion</th>
+      <th>Retirer</th>
     </tr>
   </thead>
   <tbody>
-  
+     @foreach($userGroupeAll as $userGroupe)
     <tr>
-      <td> {{$groupe->id}} </td>
-      <td>{{$groupe->libelle}}</td>
-      <td>{{$groupe->chef}}</td>
-      <td>{{$groupe->created_at}}</td>
+      <td> {{$userGroupe->id}} </td>
+      <td>{{$userGroupe->groupe->libelle}}</td>
+      <td>{{$userGroupe->groupe->chef}}</td>
+      <td>{{$userGroupe->created_at}}</td>
+      <td><a href="{{route('delete.membre.of.groupe',['id'=>$userGroupe->id])}}"><button class="btn btn-sm btn-primary">Retirer</button></a></td>
     </tr>
+    @endforeach
    
     
   </tbody>
 </table>
+
+
 
                     </div>
                   </div>
@@ -85,7 +105,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier les informations</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un membres</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -94,7 +114,7 @@
 
                     <div class="form-group">
                             <label for="exampleInputPassword4">Membres</label>
-                            <select name="user_id" id="" class="form-control">
+                            <select name="user_id" id="" class="form-control" style="color:aliceblue;">
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->nom}}</option>
                                 @endforeach

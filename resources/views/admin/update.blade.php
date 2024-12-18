@@ -56,6 +56,7 @@
                           </span>
                         </div>
                       </div>
+                      @if(Auth::user()->role=='ADMIN')
                       <div class="form-group">
                         <label style="color:aliceblue" for="exampleInputPassword4">Role</label>
                         <select name="role" id="" class="form-control" style="color:aliceblue">
@@ -64,6 +65,7 @@
                           <option value="USER">USER</option>
                         </select>
                       </div>
+                      @endif
                       <input type="hidden" name="id" value="{{ $user->id}}">
                       <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
                     </form>
