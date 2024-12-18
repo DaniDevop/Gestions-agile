@@ -12,16 +12,16 @@
                 <form method="POST" action="{{route('doLogin.users')}}">
                   @csrf
                   <div class="form-group">
-                    <label>Identifiant</label>
-                    <input type="text" name="identifiant" class="form-control p_input" >
+                    <label style="color:aliceblue">Identifiant</label>
+                    <input type="text" style="color:aliceblue" name="identifiant" class="form-control p_input"  placeholder="Identifiant">
 
                     @error('identifiant')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                   </div>
                   <div class="form-group">
-                    <label>Mot de passe</label>
-                    <input type="password" name="password" class="form-control p_input">
+                    <label style="color:aliceblue">Mot de passe</label>
+                    <input type="password" style="color:aliceblue" name="password" class="form-control p_input" placeholder="Mot de passe">
                     @error('password')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -30,13 +30,8 @@
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-block enter-btn">Valider</button>
                   </div>
-                  <div class="d-flex">
-                    <button class="btn btn-facebook mr-2 col">
-                      <i class="mdi mdi-facebook"></i> Facebook </button>
-                    <button class="btn btn-google col">
-                      <i class="mdi mdi-google-plus"></i> Google plus </button>
-                  </div>
-                  <p class="sign-up">Don't have an Account?<a href="#"> Sign Up</a></p>
+                  
+                  <p style="color:aliceblue"   class="sign-up">Mot de passe oublié ?<a href="#"> Sign Up</a></p>
                 </form>
               </div>
             </div>

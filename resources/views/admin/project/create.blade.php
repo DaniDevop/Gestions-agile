@@ -13,10 +13,10 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Ajouter un utilisateur </h3>
+              <h3 class="page-title"> Ajouter un projet </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">+Utilisateur</a></li>
+                  <li class="breadcrumb-item"><a href="#">+Projet</a></li>
                 </ol>
               </nav>
             </div>
@@ -29,15 +29,15 @@
                     <form class="forms-sample" action="{{route('create.project')}}" method="POST" >
                       @csrf
                       <div class="form-group">
-                        <label for="exampleInputName1">Libelle</label>
-                        <input type="text" class="form-control" name="libelle" id="exampleInputName1" placeholder="Designation" value="{{old('libelle')}}">
+                        <label style="color:aliceblue" for="exampleInputName1">Libelle</label>
+                        <input type="text" style="color:aliceblue" class="form-control" name="libelle" id="exampleInputName1" placeholder="Designation" value="{{old('libelle')}}">
                                         @error('libelle')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputEmail3">Date d échéances</label>
-                        <input type="date" class="form-control" name="date_echeance" id="exampleInputEmail3" placeholder="Date de fin" value="{{old('date_echeance')}}">
+                        <label style="color:aliceblue" for="exampleInputEmail3">Date d échéances</label>
+                        <input type="date" style="color:aliceblue" class="form-control" name="date_echeance" id="exampleInputEmail3" placeholder="Date de fin" value="{{old('date_echeance')}}">
                         @error('date_echeance')
             <span class="text-danger">{{ $message }}</span>
         @enderror
@@ -52,8 +52,8 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputPassword4">Groupes</label>
-                        <select name="groupe_id" id="" class="form-control">
+                        <label style="color:aliceblue" for="exampleInputPassword4">Groupes</label>
+                        <select name="groupe_id" id="" class="form-control" style="color:aliceblue">
                         @foreach($groupes as $groupe)
                             <option value="{{$groupe->id}}">{{$groupe->libelle}}</option>
                             @endforeach

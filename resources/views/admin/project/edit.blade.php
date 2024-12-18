@@ -98,14 +98,14 @@
                       @csrf
                       <div class="form-group">
                         <label for="exampleInputName1">Libelle</label>
-                        <input type="text" class="form-control" name="libelle" id="exampleInputName1" placeholder="Designation" value="{{$project->libelle}}">
+                        <input type="text" class="form-control" style="color:aliceblue" name="libelle" id="exampleInputName1" placeholder="Designation" value="{{$project->libelle}}">
                                         @error('libelle')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail3">Date d échéances</label>
-                        <input type="date" class="form-control" name="date_echeance" id="exampleInputEmail3" placeholder="Date de fin" value="{{$project->date_echeance}}">
+                        <input type="date" class="form-control" style="color:aliceblue" name="date_echeance" id="exampleInputEmail3" placeholder="Date de fin" value="{{$project->date_echeance}}">
                         @error('date_echeance')
             <span class="text-danger">{{ $message }}</span>
         @enderror
@@ -122,14 +122,14 @@
 
                       <div class="form-group">
                         <label for="exampleInputPassword4">Status</label>
-                        <select name="status" id="" class="form-control">
+                        <select name="status" id="" class="form-control" style="color:aliceblue">
                             <option value="En-cours">En-cours</option>
                             <option value="Finish">Terminée</option>
                         </select>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword4">Groupes</label>
-                        <select name="groupe_id" id="" class="form-control">
+                        <select name="groupe_id" id="" class="form-control" style="color:aliceblue">
                         <option value="{{$project->groupe_id}}">{{$project->groupe->libelle}}</option>
                         @foreach($groupes as $groupe)
                             <option value="{{$groupe->id}}">{{$groupe->libelle}}</option>
