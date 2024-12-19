@@ -61,7 +61,7 @@
     <tr>
       <td> {{$userGroupe->id}} </td>
       <td>{{$userGroupe->groupe->libelle}}</td>
-      <td>{{$userGroupe->groupe->chef}}</td>
+      <td>{{$userGroupe->user->nom}}</td>
       <td>{{$userGroupe->created_at}}</td>
       <td><a href="{{route('delete.membre.of.groupe',['id'=>$userGroupe->id])}}"><button class="btn btn-sm btn-primary">Retirer</button></a></td>
     </tr>
