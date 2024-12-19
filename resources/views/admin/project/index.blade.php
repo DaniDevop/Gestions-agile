@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   @include('layout.head')
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" />
+  
+  
   <body>
     <div class="container-scroller">
       <!-- partial:../../partials/_sidebar.html -->
@@ -32,7 +36,7 @@
                 </h4>
                     </p>
                     <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover">
+                    <table class="table table-bordered table-striped table-hover"  id="myTable">
   <thead class="thead-dark">
     <tr>
       <th>#</th>
@@ -137,5 +141,7 @@
   </div>
 </div>
    @include('layout.js')
+   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+
   </body>
 </html>

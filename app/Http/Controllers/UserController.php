@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\request\AddUserRequest;
 use App\Models\task;
 use App\Models\User;
+use App\Models\Groupe;
+use App\Models\Project;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -58,8 +61,11 @@ class UserController extends Controller
         ->where('tasks.status', 'En-cours')
         ->select('tasks.*', 'projects.libelle as project_name') 
         ->get();
+        $userCount=User::count();
+        $groupeCount=Groupe::count();
+        $projectCount=Project::count();
 
-        return view('admin.index',compact('taskAll'));
+        return view('admin.index',compact('taskAll','userCount','groupeCount','projectCount'));
     }
 
 
