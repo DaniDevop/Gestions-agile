@@ -39,7 +39,11 @@
       <th>Désignation</th>
       <th>Chef d équipe</th>
       <th>Date de création</th>
+      @if(Auth::user()->role=='USER')
+      <th>Voir les membres</th>
+      @else
       <th>Ajouter un menbres</th>
+      @endif
       <th>Éditer</th>
     </tr>
   </thead>
@@ -51,7 +55,11 @@
       <td>{{$groupe->libelle}}</td>
       <td>{{$groupe->chef}}</td>
       <td>{{$groupe->created_at}}</td>
+      @if(!Auth::user()->role=='USER')
+      <td><a href="{{route('add.membres',['id'=>$groupe->id])}}" ><button class="btn  btn-primary"><i class="bi bi-people-fill"></i></button></a></td>
+      @else
       <td><a href="{{route('add.membres',['id'=>$groupe->id])}}" ><button class="btn  btn-primary"><i class="bi bi-plus-circle"></i></button></a></td>
+      @endif
       <td><a href="{{route('edit.groupe',['id'=>$groupe->id])}}"><button class="btn btn-sm btn-primary">Éditer</button></a></td>
     </tr>
     @endforeach

@@ -27,7 +27,9 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">
-                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter un membres</button>        
+                      @if(Auth::user()->role=='ADMIN')
+                    <button class="nav-link btn btn-success create-new-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter un membres</button> 
+                    @endif       
                 </h4>
 
                 <h4 class="card-title">
@@ -53,7 +55,9 @@
       <th>Désignation</th>
       <th>Membres</th>
       <th>Date d'insertion</th>
+      @if(Auth::user()->role=='ADMIN')
       <th>Retirer</th>
+      @endif
     </tr>
   </thead>
   <tbody>
@@ -63,7 +67,9 @@
       <td>{{$userGroupe->groupe->libelle}}</td>
       <td>{{$userGroupe->user->nom}}</td>
       <td>{{$userGroupe->created_at}}</td>
+      @if(Auth::user()->role=='ADMIN')
       <td><a href="{{route('delete.membre.of.groupe',['id'=>$userGroupe->id])}}"><button class="btn btn-sm btn-primary">Retirer</button></a></td>
+      @endif
     </tr>
     @endforeach
    

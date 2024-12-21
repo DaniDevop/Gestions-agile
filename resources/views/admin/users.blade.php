@@ -38,11 +38,11 @@
       <th>Profile</th>
       <th>Nom</th>
       <th>Email</th>
+      @if(Auth::user()->role=='ADMIN')
       <th>Role</th>
-      <th>Date de création</th>
-      @if(Auth::user()=='ADMIN')
-      <th>Editer</th>
       @endif
+      <th>Date de création</th>
+     
     </tr>
   </thead>
   <tbody>
@@ -53,13 +53,12 @@
     </td>
       <td>{{$user->nom}}</td>
       <td>{{$user->email}}</td>
+      @if(Auth::user()->role=='ADMIN')
 
       <td>{{$user->role}}</td>
-      <td>{{$user->created_at}}</td>
-      @if(Auth::user()=='ADMIN')
-
-      <td><a href="{{route('edit.project',['id'=>$user->id])}}"><button class="btn btn-sm btn-primary">Éditer</button></a></td>
       @endif
+      <td>{{$user->created_at}}</td>
+     
     </tr>
     @endforeach
     
