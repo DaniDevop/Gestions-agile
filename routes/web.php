@@ -40,9 +40,12 @@ Route::middleware(AuthUserSecurity::class)->group(function () {
     Route::get('admin/mes-taches/valider/{id}', [TaskController::class, 'valide_task'])->name('validation.task');
     Route::get('admin/mes-taches/edit/{id}', [TaskController::class, 'edit_task'])->name('edit.task');
     Route::post('/admin/edit-task', [TaskController::class, 'upgrade_task'])->name('upgrade.task');
+    Route::get('admin/mes-taches/valider/admin/{id}', [TaskController::class, 'admin_valide_task'])->name('validation.task.admin');
 
     Route::get('/admin/listes-utilisateur', [UserController::class, 'listes_users'])->name('listes.users');
     Route::get('admin/update-account/{id}', [UserController::class, 'update_account'])->name('update.account');
+    Route::get('admin/valide_or_desactive_account/{id}', [UserController::class, 'active_or_desative_compte'])->name('active.or.desative.compte');
+
     Route::get('admin/groupe/add_membres/{id}', [projectController::class, 'add_membres'])->name('add.membres');
     Route::post('/admin/addUsersGroupe', [projectController::class, 'add_users_groupe'])->name('add.users.groupe');
     Route::get('admin/groupe/delete_membres/{id}', [projectController::class, 'delete_membre_of_groupe'])->name('delete.membre.of.groupe');

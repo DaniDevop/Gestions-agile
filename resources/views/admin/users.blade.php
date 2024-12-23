@@ -38,10 +38,12 @@
       <th>Profile</th>
       <th>Nom</th>
       <th>Email</th>
+      <th>Date de création</th>
       @if(Auth::user()->role=='ADMIN')
       <th>Role</th>
+      <th>Etat du compte</th>
+      <th>Active/Désactive</th>
       @endif
-      <th>Date de création</th>
      
     </tr>
   </thead>
@@ -53,12 +55,14 @@
     </td>
       <td>{{$user->nom}}</td>
       <td>{{$user->email}}</td>
-      @if(Auth::user()->role=='ADMIN')
-
-      <td>{{$user->role}}</td>
-      @endif
       <td>{{$user->created_at}}</td>
-     
+      @if(Auth::user()->role=='ADMIN')
+      <td>{{$user->role}}</td>
+      <td>{{$user->active ?'Active':'Desactiver'}}</td>
+      <td><a href="{{route('active.or.desative.compte',['id'=>$user->id])}}" class="btn btn-info"><i class="bi bi-power"></i></a></td>
+
+      @endif
+
     </tr>
     @endforeach
     

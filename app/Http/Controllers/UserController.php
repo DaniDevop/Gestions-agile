@@ -118,6 +118,7 @@ class UserController extends Controller
         $user->nom=$addUserRequest->nom;
         $user->email=$addUserRequest->email;
         $user->role=$addUserRequest->role;
+        $user->active=false;
 
         $user->password=Hash::make($addUserRequest->mot_de_passe);
         if($addUserRequest->hasFile('profile')){
@@ -206,6 +207,22 @@ class UserController extends Controller
 
         toastr()->info("Votre mot de passe à été modifié");
             return back();      
+    }
+
+
+    public function active_or_desative_compte($id){
+
+        $user=User::find($id);
+        if(!$user){
+            toastr()->warning('Veuillez rafraichir la page');
+            return back();
+        }
+        $user->active ?$user->active=false :$user->active=true;
+        $user->save();
+        
+
+        toastr()->info('Opération éffectué avec success !🎉🎉');
+        return back();
     }
 
     public function logout(){

@@ -15,10 +15,12 @@ class TaskController extends Controller
 {
     public function listes_taches(){
 
-        $taskAll=task::where('status','=','Terminer')->get();
+        $taskAll=task::where('status','=','En-attente')->get();
 
         $users=User::all();
         $projetAll=Project::all();
+
+        
         
         return view("admin.task.index",compact("taskAll","users","projetAll"));
     }
@@ -70,6 +72,7 @@ class TaskController extends Controller
         $taskAll = Task::join('projects', 'projects.id', '=', 'tasks.project_id')
         ->where('projects.groupe_id', $id)
         ->where('tasks.user_id', Auth::user()->id)
+        ->where('tasks.status', 'En-cours')
         ->select('tasks.*', 'projects.libelle as project_name') 
         ->get();
 
@@ -119,7 +122,7 @@ class TaskController extends Controller
             return back();
         }
 
-        $task->status='Terminer';
+        $task->status='En-attente';
         $task->save();
         toastr()->success('Taches valider avec success !');
 
@@ -183,6 +186,23 @@ class TaskController extends Controller
          toastr()->success("Taches modifié avec succes !");
          return back();
  
+    }
+
+
+
+    public function admin_valide_task($id){
+
+        $task=task::find($id);
+        if(!$task){
+
+            toastr()->error('Veuillez rafraichir la page !');
+            return back();
+        }
+        $task->status='Terminer';
+        $task->save();
+        toastr()->success('Taches valider avec success !');
+
+        return back();
     }
 
 }

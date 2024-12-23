@@ -17,8 +17,8 @@ class AuthUserSecurity
     public function handle(Request $request, Closure $next): Response
     {
 
-        if(!Auth::check()){
-          toastr()->warning('Veuillez vous connecter !');
+        if(!Auth::check() || Auth::user()->active==false){
+          toastr()->warning('Opération échoué ou compte désactivé !');
           return redirect()->route('login.user');
         }
         return $next($request);

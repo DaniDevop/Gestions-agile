@@ -161,9 +161,7 @@
                             <td>{{$task->project->groupe->libelle}} </td>
                             <td> {{$task->date_echeances}} </td>
                             @if(Auth::user()->role =='ADMIN')
-
-                            
-                              <td><a href="{{route('validation.task',['id'=>$task->id])}}"><button class="btn badge badge-outline-success">Valider</button></a></td>
+                              <td><a href="{{route('validation.task.admin',['id'=>$task->id])}}"><button class="btn badge badge-outline-success">Valider</button></a></td>
 
                              @endif
                           </tr>

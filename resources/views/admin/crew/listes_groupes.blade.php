@@ -39,12 +39,13 @@
       <th>Désignation</th>
       <th>Chef d équipe</th>
       <th>Date de création</th>
-      @if(Auth::user()->role=='USER')
       <th>Voir les membres</th>
-      @else
+      @if(Auth::user()->role=='ADMIN')
       <th>Ajouter un menbres</th>
       @endif
+      @if(Auth::user()->role=='ADMIN')
       <th>Éditer</th>
+      @endif
     </tr>
   </thead>
   <tbody>
@@ -55,12 +56,13 @@
       <td>{{$groupe->libelle}}</td>
       <td>{{$groupe->chef}}</td>
       <td>{{$groupe->created_at}}</td>
-      @if(!Auth::user()->role=='USER')
       <td><a href="{{route('add.membres',['id'=>$groupe->id])}}" ><button class="btn  btn-primary"><i class="bi bi-people-fill"></i></button></a></td>
-      @else
+      @if(Auth::user()->role=='ADMIN')
       <td><a href="{{route('add.membres',['id'=>$groupe->id])}}" ><button class="btn  btn-primary"><i class="bi bi-plus-circle"></i></button></a></td>
       @endif
+      @if(Auth::user()->role=='ADMIN')
       <td><a href="{{route('edit.groupe',['id'=>$groupe->id])}}"><button class="btn btn-sm btn-primary">Éditer</button></a></td>
+      @endif
     </tr>
     @endforeach
     

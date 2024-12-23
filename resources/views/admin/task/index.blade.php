@@ -42,6 +42,9 @@
       <th>Project</th>
       <th>Groupe</th>
       <th>Status</th>
+      @if(Auth::user()->role =='ADMIN')
+      <th>Confirmer</th>
+      @endif
     </tr>
   </thead>
   <tbody>
@@ -52,7 +55,10 @@
       <td>{{$task->user->nom}}</td>
       <td>{{$task->project->libelle ??''}}</td>
       <td>{{$task->project->groupe->libelle}}</td>
-      <td>{{$task->status}}</td>
+      <td style="color:green;">En-attente</td>
+      @if(Auth::user()->role =='ADMIN')
+      <td><a href="{{route('validation.task.admin',['id'=>$task->id])}}"><button class="btn badge badge-outline-success">Valider</button></a></td>
+      @endif
     </tr>
     @endforeach
     
